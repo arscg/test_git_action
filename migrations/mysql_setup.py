@@ -1,18 +1,30 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Aug 12 19:32:08 2024
-
-@author: arsca
-"""
-
 import pymysql
 from faker import Faker
 import os
+from urllib.parse import urlparse
 
 # Configuration
 fake = Faker()
 mysql_uri = os.getenv('MYSQL_DATABASE_URI')
-conn = pymysql.connect(mysql_uri)
+
+# Parse the URI
+url = urlparse(mysql_uri)
+
+# Extract connection parameters
+host = url.hostname
+port = url.port
+user = url.username
+password = url.password
+database = url.path[1:]
+
+# Connect to the MySQL database
+conn = pymysql.connect(
+    host=host,
+    port=port,
+    user=user,
+    password=password,
+    database=database
+)
 
 try:
     with conn.cursor() as cursor:
