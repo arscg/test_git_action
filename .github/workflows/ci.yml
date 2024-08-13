@@ -23,10 +23,10 @@ jobs:
 
     steps:
     - name: Check out code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4  # Mise à jour vers la version compatible Node.js 20
 
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4  # Mise à jour vers la version compatible Node.js 20
       with:
         python-version: '3.8'
 
