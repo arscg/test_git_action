@@ -4,3 +4,5 @@ PyJWT==2.3.0
 pymysql==1.0.2
 Faker==9.7.0
 Werkzeug==2.0.2
+SQLAlchemy==1.4.29
+
