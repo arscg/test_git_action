@@ -51,12 +51,6 @@ try:
             cursor.execute("INSERT INTO users (username, password) VALUES (%s, %s)", (fake.user_name(), fake.password()))
             cursor.execute("INSERT INTO products (name, price) VALUES (%s, %s)", (fake.word(), fake.random_number(digits=2)))
 
-    conn.commit()
-finally:
-    conn.close()
-
-try:
-    with conn.cursor() as cursor:
         # Create table `table_chevres_minute_serveur_v2`
         cursor.execute("""
         CREATE TABLE IF NOT EXISTS table_chevres_minute_serveur_v2 (
@@ -140,4 +134,3 @@ try:
 
 finally:
     conn.close()
-
