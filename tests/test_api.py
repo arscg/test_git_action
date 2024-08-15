@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Aug 12 19:31:34 2024
-
-@author: arsca
-"""
-
 import unittest
 from app import app, db
 from models import User, Product
@@ -37,6 +30,20 @@ class ApiTestCase(unittest.TestCase):
         response = self.app.get('/products', headers={'x-access-tokens': self.token})
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.get_json()), 2)
+
+    def test_get_data_animov_ch(self):
+        params = {
+            'sources': '1,2',
+            'with_images': 'False',
+            'with_detect': 'False',
+            'with_stats': 'True',
+            'with_global_stats': 'True'
+        }
+        response = self.app.get('/get_data_animov_ch', headers={'x-access-tokens': self.token}, query_string=params)
+        self.assertEqual(response.status_code, 200)
+        json_data = response.get_json()
+        self.assertIn('_general_stats', json_data)
+        self.assertIn('_send_date', json_data)
 
 if __name__ == '__main__':
     unittest.main()
