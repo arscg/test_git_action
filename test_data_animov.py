@@ -671,7 +671,7 @@ def get_data_animov_ch_minutes():
 
 # Définition d'une route Flask pour obtenir des données spécifiques avec la méthode HTTP GET.
 @app.route('/get_data_animov_ch', methods=['GET'])
-# @token_required
+@token_required
 def get_data_animov_ch():
     """
 Exemple d'endpoint qui renvoie des données détaillées sur les activités avec des scores et statistiques.
