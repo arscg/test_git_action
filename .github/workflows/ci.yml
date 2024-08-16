@@ -41,6 +41,6 @@ jobs:
       run: |
         python migrations/mysql_setup.py
 
-    - name: Run tests
+    - name: Run tests with pytest
       run: |
-        python -m unittest discover -s tests
+        pytest --maxfail=5 --disable-warnings
