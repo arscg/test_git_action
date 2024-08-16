@@ -36,7 +36,8 @@ class ApiTestCase(unittest.TestCase):
     #         db.drop_all()  # Supprime toutes les tables après les tests
 
     def test_get_data_animov_ch(self):
-        response = self.app.get('/get_data_animov_ch', headers={'x-access-tokens': self.token}, query_string={
+        # response = self.app.get('/get_data_animov_ch', headers={'x-access-tokens': self.token}, query_string={
+        response = self.app.get('/get_data_animov_ch', query_string={
             'sources': '1,2',
             'with_images': 'False',
             'with_detect': 'False',
