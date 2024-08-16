@@ -2,7 +2,7 @@ import unittest
 from test_data_animov import app
 # from app import db
 from werkzeug.security import generate_password_hash
-from models import User
+# from models import User
 
 class ApiTestCase(unittest.TestCase):
     # def setUp(self):
