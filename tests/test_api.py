@@ -1,7 +1,8 @@
 import unittest
-from test_data_animov import app
+import test_data_animov
+# from test_data_animov import app
 # from app import db
-from werkzeug.security import generate_password_hash
+# from werkzeug.security import generate_password_hash
 # from models import User
 
 class ApiTestCase(unittest.TestCase):
