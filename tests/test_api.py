@@ -1,11 +1,14 @@
 import unittest
-import test_data_animov
-# from test_data_animov import app
+from test_data_animov import app
+import json
 # from app import db
 # from werkzeug.security import generate_password_hash
 # from models import User
 
 class ApiTestCase(unittest.TestCase):
+    def setUp(self):
+        self.app = app.test_client()
+        self.app.testing = True
     # def setUp(self):
     #     self.app = app.test_client()
     #     with app.app_context():
