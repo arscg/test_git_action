@@ -26,10 +26,10 @@ class ApiTestCase(unittest.TestCase):
         # Tester la route get_data_animov_ch avec les paramètres requis
         response = self.app.get('/get_data_animov_ch', headers={'x-access-tokens': self.token}, query_string={
             'sources': '1,2',  # Exemple de sources valides
-            'with_images': 'False',
+            'with_images': 'Single',
             'with_detect': 'False',
-            'with_stats': 'True',
-            'with_global_stats': 'True'
+            'with_stats': 'False',
+            'with_global_stats': 'False'
         })
 
         # Vérifier que la requête est réussie
