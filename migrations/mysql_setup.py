@@ -16,7 +16,7 @@ host = url.hostname
 port = url.port
 user = url.username
 password = url.password
-database = url.path[1:]
+database = 'ANIMOV'
 
 # Connect to the MySQL database
 conn = pymysql.connect(
@@ -29,6 +29,12 @@ conn = pymysql.connect(
 
 try:
     with conn.cursor() as cursor:
+        # Créer la base de données si elle n'existe pas
+        cursor.execute(f"CREATE DATABASE IF NOT EXISTS {database};")
+        
+        # Sélectionner la base de données
+        cursor.execute(f"USE {database};")
+
         # Create tables
         cursor.execute("""
         CREATE TABLE IF NOT EXISTS users (
