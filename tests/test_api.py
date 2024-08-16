@@ -1,6 +1,7 @@
 import unittest
 from app import app, db
 from werkzeug.security import generate_password_hash
+from models import User
 
 class ApiTestCase(unittest.TestCase):
     def setUp(self):
