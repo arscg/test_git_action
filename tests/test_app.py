@@ -42,7 +42,7 @@ def test_protected_route_no_token(client):
 # Liste des routes protégées à tester
 protected_routes = [
     '/chevres_heures',
-    # '/chevres_minutes',
+    '/chevres_minutes',
     '/sources',
     '/dates',
     # '/stats_minute',
@@ -81,7 +81,7 @@ get_routes = [
     # '/get_serie_last_heure',
     # '/get_serie_last_jour',
     '/chevres_heures',
-    # '/chevres_minutes'
+    '/chevres_minutes'
 ]
 
 # Test de la récupération des données pour toutes les routes GET

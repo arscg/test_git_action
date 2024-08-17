@@ -157,6 +157,28 @@ try:
                            (fake.date_time_this_year(), random.randint(1, 4), random.randint(0, 23), 
                             random.random()*10, random.random()*10, random.random()*10, 
                             random.random()*10, random.random()*10))
+        
+        # Ajouter la table table_chevres_minute
+        cursor.execute("""
+        CREATE TABLE IF NOT EXISTS table_chevres_minute (
+            jour DATETIME NOT NULL,
+            source BIGINT(20) NOT NULL,
+            minutes BIGINT(20) NOT NULL,
+            heure BIGINT(20) NOT NULL,
+            brush DOUBLE NOT NULL,
+            drink DOUBLE NOT NULL,
+            eat DOUBLE NOT NULL,
+            class_0 DOUBLE NOT NULL,
+            class_1 DOUBLE NOT NULL
+        );
+        """)
+
+        # Ajouter du contenu si nécessaire, par exemple :
+        for _ in range(10):
+            cursor.execute("INSERT INTO table_chevres_minute (jour, source, minutes, heure, brush, drink, eat, class_0, class_1) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)",
+                           (fake.date_time_this_year(), random.randint(1, 4), random.randint(0, 59), random.randint(0, 23), 
+                            random.random()*10, random.random()*10, random.random()*10, 
+                            random.random()*10, random.random()*10))
 
     # Commit the changes
     conn.commit()
