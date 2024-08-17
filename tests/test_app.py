@@ -75,7 +75,7 @@ get_routes = [
     '/sources',
     '/dates',
     '/stats_minute',
-    '/stats_heure',
+    #'/stats_heure',
     # '/get_serie_heure',
     # '/get_serie_jour',
     # '/get_serie_last_heure',
