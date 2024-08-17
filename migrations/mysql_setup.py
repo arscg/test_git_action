@@ -28,6 +28,9 @@ conn = pymysql.connect(
 
 try:
     with conn.cursor() as cursor:
+        # Modifier le mot de passe de l'utilisateur root
+        cursor.execute("ALTER USER 'root'@'localhost' IDENTIFIED BY 'admin';")
+        
         # Créer la base de données si elle n'existe pas
         cursor.execute(f"CREATE DATABASE IF NOT EXISTS {database};")
         
@@ -142,4 +145,3 @@ try:
 
 finally:
     conn.close()
-
