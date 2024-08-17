@@ -39,36 +39,36 @@ def test_protected_route_no_token(client):
     # Vérifier que le message d'erreur de token manquant est présent
     assert data['message'] == 'Token manquant'
 
-# # Liste des routes protégées à tester
-# protected_routes = [
-#     '/chevres_heures',
-#     # '/chevres_minutes',
-#     # '/sources',
-#     # '/dates',
-#     # '/stats_minute',
-#     # '/stats_heure',
-#     # '/get_serie_heure',
-#     # '/get_serie_jour',
-#     # '/get_serie_last_heure',
-#     # '/get_serie_last_jour',
-#     # '/get_data_animov'
-# ]
+# Liste des routes protégées à tester
+protected_routes = [
+    '/chevres_heures',
+    # '/chevres_minutes',
+    # '/sources',
+    # '/dates',
+    # '/stats_minute',
+    # '/stats_heure',
+    # '/get_serie_heure',
+    # '/get_serie_jour',
+    # '/get_serie_last_heure',
+    # '/get_serie_last_jour',
+    # '/get_data_animov'
+]
 
-# # Test d'accès à toutes les routes protégées avec un token valide
-# def test_protected_routes_with_token(client):
-#     # Obtenir un token de connexion valide
-#     response = client.post('/login', json={
-#         'username': 'arscg',
-#         'password': 'arscg'
-#     })
-#     data = json.loads(response.data)
-#     token = data['token']
+# Test d'accès à toutes les routes protégées avec un token valide
+def test_protected_routes_with_token(client):
+    # Obtenir un token de connexion valide
+    response = client.post('/login', json={
+        'username': 'arscg',
+        'password': 'arscg'
+    })
+    data = json.loads(response.data)
+    token = data['token']
 
-#     # Itérer sur toutes les routes protégées
-#     for route in protected_routes:
-#         response = client.get(route, headers={'x-access-tokens': token})
-#         # Vérifier que la réponse a un statut 200 OK pour chaque route
-#         assert response.status_code == 200, f"Echec sur la route {route}"
+    # Itérer sur toutes les routes protégées
+    for route in protected_routes:
+        response = client.get(route, headers={'x-access-tokens': token})
+        # Vérifier que la réponse a un statut 200 OK pour chaque route
+        assert response.status_code == 200, f"Echec sur la route {route}"
 
 # Liste des routes GET à tester pour la récupération des données
 get_routes = [
