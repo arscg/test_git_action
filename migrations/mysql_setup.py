@@ -35,7 +35,7 @@ try:
         # Sélectionner la base de données
         cursor.execute(f"USE {database};")
         
-        # Create tables
+        # Créer les tables (comme dans votre code)
         cursor.execute("""
         CREATE TABLE IF NOT EXISTS users (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -52,15 +52,14 @@ try:
         );
         """)
 
-        # Populate tables
+        # Populate tables (comme dans votre code)
         for _ in range(10):
             cursor.execute("INSERT INTO users (username, password) VALUES (%s, %s)", (fake.user_name(), fake.password()))
             cursor.execute("INSERT INTO products (name, price) VALUES (%s, %s)", (fake.word(), fake.random_number(digits=2)))
 
-        # Ajouter un utilisateur spécifique 'arscg'
         cursor.execute("INSERT INTO users (username, password) VALUES (%s, %s)", ('arscg', 'arscg'))
 
-        # Create table `table_chevres_minute_serveur_v2`
+        # Create table `table_chevres_minute_serveur_v2` (comme dans votre code)
         cursor.execute("""
         CREATE TABLE IF NOT EXISTS table_chevres_minute_serveur_v2 (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -94,8 +93,8 @@ try:
         );
         """)
 
-        # Populate table with Faker data
-        for _ in range(100):  # Nombre de lignes à insérer
+        # Populate table with Faker data (comme dans votre code)
+        for _ in range(100):
             timestamp = fake.unix_time()
             source = random.randint(1, 4)
             total = random.randint(0, 100)
@@ -138,7 +137,7 @@ try:
                 Q3_total, Q3_couche, Q3_debout, mode_total, mode_couche, mode_debout, nb_frames
             ))
           
-        # Ajouter la table table_chevres_heures
+        # Ajouter la table table_chevres_heures (comme dans votre code)
         cursor.execute("""
         CREATE TABLE IF NOT EXISTS table_chevres_heures (
             jour DATETIME NOT NULL,
@@ -152,14 +151,13 @@ try:
         );
         """)
 
-        # Ajouter du contenu si nécessaire, par exemple :
         for _ in range(10):
             cursor.execute("INSERT INTO table_chevres_heures (jour, source, heure, brush, drink, eat, class_0, class_1) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)",
                            (fake.date_time_this_year(), random.randint(1, 4), random.randint(0, 23), 
                             random.random()*10, random.random()*10, random.random()*10, 
                             random.random()*10, random.random()*10))
         
-        # Ajouter la table table_chevres_minute
+        # Ajouter la table table_chevres_minute (comme dans votre code)
         cursor.execute("""
         CREATE TABLE IF NOT EXISTS table_chevres_minute (
             jour DATETIME NOT NULL,
@@ -174,14 +172,13 @@ try:
         );
         """)
 
-        # Ajouter du contenu si nécessaire, par exemple :
         for _ in range(10):
             cursor.execute("INSERT INTO table_chevres_minute (jour, source, minutes, heure, brush, drink, eat, class_0, class_1) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)",
                            (fake.date_time_this_year(), random.randint(1, 4), random.randint(0, 59), random.randint(0, 23), 
                             random.random()*10, random.random()*10, random.random()*10, 
                             random.random()*10, random.random()*10))
 
-        # Création de la vue vue_chevres_derniere_minute_v2
+        # Création de la vue vue_chevres_derniere_minute_v2 (comme dans votre code)
         cursor.execute("""
         CREATE OR REPLACE VIEW vue_chevres_derniere_minute_v2 AS
         SELECT 
@@ -216,24 +213,28 @@ try:
         WHERE timestamp = (SELECT MAX(timestamp) FROM table_chevres_minute_serveur_v2);
         """)
     
-    # Créer la procédure ConsoliderResultatsEcartType sans DELIMITER
-    cursor.execute("""
-    CREATE PROCEDURE ConsoliderResultatsEcartType()
-    BEGIN
-        -- Exemple de mise à jour d'une colonne avec l'écart-type calculé
-        UPDATE table_chevres_minute_serveur_v2
-        SET std_total = (SELECT STDDEV(total) FROM table_chevres_minute_serveur_v2 WHERE source = table_chevres_minute_serveur_v2.source),
-            std_couche = (SELECT STDDEV(couche) FROM table_chevres_minute_serveur_v2 WHERE source = table_chevres_minute_serveur_v2.source),
-            std_debout = (SELECT STDDEV(debout) FROM table_chevres_minute_serveur_v2 WHERE source = table_chevres_minute_serveur_v2.source);
-    END;
-    """)
-
-    # Appeler la procédure stockée ConsoliderResultatsEcartType
-    cursor.execute("CALL `ANIMOV`.`ConsoliderResultatsEcartType`()")
+    # # Créer la procédure ConsoliderResultatsEcartType sans DELIMITER
+    # try:
+    #     cursor.execute("""
+    #     CREATE PROCEDURE ConsoliderResultatsEcartType()
+    #     BEGIN
+    #         UPDATE table_chevres_minute_serveur_v2
+    #         SET std_total = (SELECT STDDEV(total) FROM table_chevres_minute_serveur_v2 WHERE source = table_chevres_minute_serveur_v2.source),
+    #             std_couche = (SELECT STDDEV(couche) FROM table_chevres_minute_serveur_v2 WHERE source = table_chevres_minute_serveur_v2.source),
+    #             std_debout = (SELECT STDDEV(debout) FROM table_chevres_minute_serveur_v2 WHERE source = table_chevres_minute_serveur_v2.source);
+    #     END;
+    #     """)
+    # except pymysql.MySQLError as e:
+    #     print(f"Erreur lors de la création de la procédure : {e}")
+    
+    # # Appeler la procédure stockée ConsoliderResultatsEcartType
+    # try:
+    #     cursor.execute("CALL `ANIMOV`.`ConsoliderResultatsEcartType`()")
+    # except pymysql.MySQLError as e:
+    #     print(f"Erreur lors de l'appel de la procédure : {e}")
 
     # Commit the changes
     conn.commit()
 
 finally:
     conn.close()
-
