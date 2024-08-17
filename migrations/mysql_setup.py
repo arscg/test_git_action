@@ -213,6 +213,54 @@ try:
         WHERE timestamp = (SELECT MAX(timestamp) FROM table_chevres_minute_serveur_v2);
         """)
     
+        # Création de la table ResultatsConsolides
+        cursor.execute("""
+        CREATE TABLE IF NOT EXISTS ResultatsConsolides (
+            source INT(11) NOT NULL,
+            moyenne_total DECIMAL(10,6) NOT NULL,
+            max_total DECIMAL(10,0) NOT NULL,
+            min_total DECIMAL(10,0) NOT NULL,
+            ecart_type_total DECIMAL(10,6) NOT NULL,
+            moyenne_debout DECIMAL(10,6) NOT NULL,
+            max_debout DECIMAL(10,0) NOT NULL,
+            min_debout DECIMAL(10,0) NOT NULL,
+            ecart_type_debout DECIMAL(10,6) NOT NULL,
+            moyenne_couche DECIMAL(10,6) NOT NULL,
+            max_couche DECIMAL(10,0) NOT NULL,
+            min_couche DECIMAL(10,0) NOT NULL,
+            ecart_type_couche DECIMAL(10,6) NOT NULL
+        );
+        """)
+
+        # Peupler la table avec des données factices
+        for _ in range(100):  # Nombre de lignes à insérer
+            source = random.randint(1, 4)
+            moyenne_total = round(random.uniform(0, 100), 6)
+            max_total = random.randint(50, 150)
+            min_total = random.randint(0, 50)
+            ecart_type_total = round(random.uniform(0, 10), 6)
+            moyenne_debout = round(random.uniform(0, 100), 6)
+            max_debout = random.randint(50, 150)
+            min_debout = random.randint(0, 50)
+            ecart_type_debout = round(random.uniform(0, 10), 6)
+            moyenne_couche = round(random.uniform(0, 100), 6)
+            max_couche = random.randint(50, 150)
+            min_couche = random.randint(0, 50)
+            ecart_type_couche = round(random.uniform(0, 10), 6)
+
+            cursor.execute("""
+                INSERT INTO ResultatsConsolides (
+                    source, moyenne_total, max_total, min_total, ecart_type_total,
+                    moyenne_debout, max_debout, min_debout, ecart_type_debout,
+                    moyenne_couche, max_couche, min_couche, ecart_type_couche
+                ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            """, (
+                source, moyenne_total, max_total, min_total, ecart_type_total,
+                moyenne_debout, max_debout, min_debout, ecart_type_debout,
+                moyenne_couche, max_couche, min_couche, ecart_type_couche
+            ))
+
+    
     # # Créer la procédure ConsoliderResultatsEcartType sans DELIMITER
     # try:
     #     cursor.execute("""
