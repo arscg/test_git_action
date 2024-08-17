@@ -212,6 +212,44 @@ try:
         FROM table_chevres_minute_serveur_v2
         WHERE timestamp = (SELECT MAX(timestamp) FROM table_chevres_minute_serveur_v2);
         """)
+
+        # Création de la vue vue_chevre_derniere_heure_last
+        cursor.execute("""
+        CREATE OR REPLACE VIEW vue_chevre_derniere_heure_last AS
+        SELECT 
+            id,
+            timestamp,
+            source,
+            total,
+            couche,
+            debout,
+            max_total,
+            max_couche,
+            max_debout,
+            min_total,
+            min_couche,
+            min_debout,
+            std_total,
+            std_couche,
+            std_debout,
+            Q1_total,
+            Q1_couche,
+            Q1_debout,
+            Q2_total,
+            Q2_couche,
+            Q2_debout,
+            Q3_total,
+            Q3_couche,
+            Q3_debout,
+            mode_total,
+            mode_couche,
+            mode_debout
+        FROM table_chevres_minute_serveur_v2  -- Remplacez par le nom de votre table de base
+        WHERE timestamp = (
+            SELECT MAX(timestamp) 
+            FROM table_chevres_minute_serveur_v2 -- Remplacez par le nom de votre table de base
+        );
+        """)
     
         # Création de la table ResultatsConsolides
         cursor.execute("""
