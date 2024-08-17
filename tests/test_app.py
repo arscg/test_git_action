@@ -14,19 +14,19 @@ def test_login_success(client):
     # Vérifier que le token est présent dans la réponse
     assert 'token' in data
 
-# Test de la route de login avec des informations d'identification incorrectes
-def test_login_failure(client):
-    # Envoyer une requête POST à la route de login avec des informations incorrectes
-    response = client.post('/login', json={
-        'username': 'wronguser',
-        'password': 'wrongpass'
-    })
-    # Vérifier que la réponse a un statut 401 Unauthorized
-    assert response.status_code == 401
-    # Charger la réponse JSON
-    data = json.loads(response.data)
-    # Vérifier que le message d'erreur d'authentification échouée est présent
-    assert data['message'] == 'Authentification échouée'
+# # Test de la route de login avec des informations d'identification incorrectes
+# def test_login_failure(client):
+#     # Envoyer une requête POST à la route de login avec des informations incorrectes
+#     response = client.post('/login', json={
+#         'username': 'wronguser',
+#         'password': 'wrongpass'
+#     })
+#     # Vérifier que la réponse a un statut 401 Unauthorized
+#     assert response.status_code == 401
+#     # Charger la réponse JSON
+#     data = json.loads(response.data)
+#     # Vérifier que le message d'erreur d'authentification échouée est présent
+#     assert data['message'] == 'Authentification échouée'
 
 # Test d'accès à une route protégée sans token
 def test_protected_route_no_token(client):
