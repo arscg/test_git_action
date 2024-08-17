@@ -47,7 +47,7 @@ protected_routes = [
     '/dates',
     '/stats_minute',
     # '/stats_heure',
-    # '/get_serie_heure',
+    '/get_serie_heure',
     '/get_serie_jour',
     '/get_serie_last_heure',
     '/get_serie_last_jour'
@@ -75,7 +75,7 @@ get_routes = [
     '/dates',
     '/stats_minute',
     # '/stats_heure',
-    # '/get_serie_heure',
+    '/get_serie_heure',
     '/get_serie_jour',
     '/get_serie_last_heure',
     '/get_serie_last_jour',
