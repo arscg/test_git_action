@@ -1131,7 +1131,7 @@ responses:
             return jsonify({"data": json_, '_send_date': current_date}), 200 
 
 @app.route('/chevres_heures', methods=['GET'])
-@token_required
+# @token_required
 def get_chevres_heures():
     """
 Exemple d'endpoint qui renvoie des données d'activités à haute précision.

@@ -46,12 +46,11 @@ protected_routes = [
     '/sources',
     '/dates',
     '/stats_minute',
-    '/stats_heure',
+    # '/stats_heure',
     '/get_serie_heure',
     '/get_serie_jour',
     '/get_serie_last_heure',
-    '/get_serie_last_jour',
-    # '/get_data_animov'
+    '/get_serie_last_jour'
 ]
 
 # Test d'accès à toutes les routes protégées avec un token valide
@@ -75,7 +74,7 @@ get_routes = [
     '/sources',
     '/dates',
     '/stats_minute',
-    '/stats_heure',
+    # '/stats_heure',
     '/get_serie_heure',
     '/get_serie_jour',
     '/get_serie_last_heure',
