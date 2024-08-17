@@ -39,53 +39,23 @@ def test_protected_route_no_token(client):
     # Vérifier que le message d'erreur de token manquant est présent
     assert data['message'] == 'Token manquant'
 
-# Liste des routes protégées à tester
-protected_routes = [
-    '/chevres_heures',
-    # '/chevres_minutes',
-    # '/sources',
-    # '/dates',
-    # '/stats_minute',
-    # '/stats_heure',
-    # '/get_serie_heure',
-    # '/get_serie_jour',
-    # '/get_serie_last_heure',
-    # '/get_serie_last_jour',
-    # '/get_data_animov'
-]
-
-# Test d'accès à toutes les routes protégées avec un token valide
-def test_protected_routes_with_token(client):
-    # Obtenir un token de connexion valide
-    response = client.post('/login', json={
-        'username': 'arscg',
-        'password': 'arscg'
-    })
-    data = json.loads(response.data)
-    token = data['token']
-
-    # Itérer sur toutes les routes protégées
-    for route in protected_routes:
-        response = client.get(route, headers={'x-access-tokens': token})
-        # Vérifier que la réponse a un statut 200 OK pour chaque route
-        assert response.status_code == 200, f"Echec sur la route {route}"
-
-# # Liste des routes GET à tester pour la récupération des données
-# get_routes = [
-#     '/sources',
-#     '/dates',
-#     '/stats_minute',
-#     '/stats_heure',
-#     '/get_serie_heure',
-#     '/get_serie_jour',
-#     '/get_serie_last_heure',
-#     '/get_serie_last_jour',
+# # Liste des routes protégées à tester
+# protected_routes = [
 #     '/chevres_heures',
-#     '/chevres_minutes'
+#     # '/chevres_minutes',
+#     # '/sources',
+#     # '/dates',
+#     # '/stats_minute',
+#     # '/stats_heure',
+#     # '/get_serie_heure',
+#     # '/get_serie_jour',
+#     # '/get_serie_last_heure',
+#     # '/get_serie_last_jour',
+#     # '/get_data_animov'
 # ]
 
-# # Test de la récupération des données pour toutes les routes GET
-# def test_get_routes(client):
+# # Test d'accès à toutes les routes protégées avec un token valide
+# def test_protected_routes_with_token(client):
 #     # Obtenir un token de connexion valide
 #     response = client.post('/login', json={
 #         'username': 'arscg',
@@ -94,15 +64,45 @@ def test_protected_routes_with_token(client):
 #     data = json.loads(response.data)
 #     token = data['token']
 
-#     # Itérer sur toutes les routes GET
-#     for route in get_routes:
+#     # Itérer sur toutes les routes protégées
+#     for route in protected_routes:
 #         response = client.get(route, headers={'x-access-tokens': token})
 #         # Vérifier que la réponse a un statut 200 OK pour chaque route
 #         assert response.status_code == 200, f"Echec sur la route {route}"
-#         # Charger la réponse JSON
-#         data = json.loads(response.data)
-#         # Vérifier que la réponse est une liste ou un dictionnaire, selon le cas
-#         assert isinstance(data, (list, dict)), f"La réponse de la route {route} n'est pas du bon type"
+
+# Liste des routes GET à tester pour la récupération des données
+get_routes = [
+    # '/sources',
+    # '/dates',
+    # '/stats_minute',
+    # '/stats_heure',
+    # '/get_serie_heure',
+    # '/get_serie_jour',
+    # '/get_serie_last_heure',
+    # '/get_serie_last_jour',
+    '/chevres_heures',
+    # '/chevres_minutes'
+]
+
+# Test de la récupération des données pour toutes les routes GET
+def test_get_routes(client):
+    # Obtenir un token de connexion valide
+    response = client.post('/login', json={
+        'username': 'arscg',
+        'password': 'arscg'
+    })
+    data = json.loads(response.data)
+    token = data['token']
+
+    # Itérer sur toutes les routes GET
+    for route in get_routes:
+        response = client.get(route, headers={'x-access-tokens': token})
+        # Vérifier que la réponse a un statut 200 OK pour chaque route
+        assert response.status_code == 200, f"Echec sur la route {route}"
+        # Charger la réponse JSON
+        data = json.loads(response.data)
+        # Vérifier que la réponse est une liste ou un dictionnaire, selon le cas
+        assert isinstance(data, (list, dict)), f"La réponse de la route {route} n'est pas du bon type"
 
 # Test de la réception de données Animov
 def test_receive_data_animov(client):
