@@ -28,14 +28,14 @@ conn = pymysql.connect(
 
 try:
     with conn.cursor() as cursor:
-        # Modifier le mot de passe de 'root' pour 'admin'
-        cursor.execute("ALTER USER 'root'@'localhost' IDENTIFIED BY 'admin';")
+        # # Modifier le mot de passe de 'root' pour 'admin'
+        # cursor.execute("ALTER USER 'root'@'localhost' IDENTIFIED BY 'admin';")
 
-        # Accorder tous les privilèges à 'root'
-        cursor.execute("GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' WITH GRANT OPTION;")
+        # # Accorder tous les privilèges à 'root'
+        # cursor.execute("GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' WITH GRANT OPTION;")
 
-        # Appliquer les modifications
-        cursor.execute("FLUSH PRIVILEGES;")
+        # # Appliquer les modifications
+        # cursor.execute("FLUSH PRIVILEGES;")
 
         # Créer la base de données si elle n'existe pas
         cursor.execute(f"CREATE DATABASE IF NOT EXISTS {database};")
@@ -43,14 +43,14 @@ try:
         # Sélectionner la base de données
         cursor.execute(f"USE {database};")
 
-        # Modifier le mot de passe de 'root' pour 'admin'
-        cursor.execute("ALTER USER 'root'@'localhost' IDENTIFIED BY 'admin';")
+        # # Modifier le mot de passe de 'root' pour 'admin'
+        # cursor.execute("ALTER USER 'root'@'localhost' IDENTIFIED BY 'admin';")
 
-        # Accorder tous les privilèges à 'root'
-        cursor.execute("GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' WITH GRANT OPTION;")
+        # # Accorder tous les privilèges à 'root'
+        # cursor.execute("GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' WITH GRANT OPTION;")
 
-        # Appliquer les modifications
-        cursor.execute("FLUSH PRIVILEGES;")
+        # # Appliquer les modifications
+        # cursor.execute("FLUSH PRIVILEGES;")
         
         # Create tables
         cursor.execute("""
