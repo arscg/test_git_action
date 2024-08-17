@@ -122,35 +122,35 @@ def test_receive_data_animov(client):
     # Vérifier que le message de réponse indique que les données ont été reçues
     assert b'Re\xc3\xa7u' in response.data  # Vérification du message de réponse 'Reçu'
 
-# # Test de la récupération des données Animov avec différents paramètres
-# def test_get_data_animov_ch(client):
-#     # Obtenir un token de connexion valide
-#     response = client.post('/login', json={
-#         'username': 'arscg',
-#         'password': 'arscg'
-#     })
-#     data = json.loads(response.data)
-#     token = data['token']
+# Test de la récupération des données Animov avec différents paramètres
+def test_get_data_animov_ch(client):
+    # Obtenir un token de connexion valide
+    response = client.post('/login', json={
+        'username': 'arscg',
+        'password': 'arscg'
+    })
+    data = json.loads(response.data)
+    token = data['token']
 
-#     # Liste des paramètres à tester
-#     params_list = [
-#         {'sources': "1,2,3,4", 'with_images': "Single", 'with_detect': False, 'with_stats': False, 'with_global_stats': True},
-#         {'sources': "1", 'with_images': "Single", 'with_detect': False, 'with_stats': False, 'with_global_stats': False},
-#         {'sources': "2", 'with_images': "Single", 'with_detect': False, 'with_stats': False, 'with_global_stats': False},
-#         {'sources': "3", 'with_images': "Single", 'with_detect': False, 'with_stats': False, 'with_global_stats': False},
-#         {'sources': "4", 'with_images': "Single", 'with_detect': False, 'with_stats': False, 'with_global_stats': False},
-#         {'sources': "1", 'with_images': "Single", 'with_detect': True, 'with_stats': False, 'with_global_stats': False},
-#         {'sources': "2", 'with_images': "Single", 'with_detect': True, 'with_stats': False, 'with_global_stats': False},
-#         {'sources': "3", 'with_images': "Single", 'with_detect': True, 'with_stats': False, 'with_global_stats': False},
-#         {'sources': "4", 'with_images': "Single", 'with_detect': True, 'with_stats': False, 'with_global_stats': False},
-#     ]
+    # Liste des paramètres à tester
+    params_list = [
+        {'sources': "1,2,3,4", 'with_images': "Single", 'with_detect': False, 'with_stats': False, 'with_global_stats': True},
+        {'sources': "1", 'with_images': "Single", 'with_detect': False, 'with_stats': False, 'with_global_stats': False},
+        {'sources': "2", 'with_images': "Single", 'with_detect': False, 'with_stats': False, 'with_global_stats': False},
+        {'sources': "3", 'with_images': "Single", 'with_detect': False, 'with_stats': False, 'with_global_stats': False},
+        {'sources': "4", 'with_images': "Single", 'with_detect': False, 'with_stats': False, 'with_global_stats': False},
+        {'sources': "1", 'with_images': "Single", 'with_detect': True, 'with_stats': False, 'with_global_stats': False},
+        {'sources': "2", 'with_images': "Single", 'with_detect': True, 'with_stats': False, 'with_global_stats': False},
+        {'sources': "3", 'with_images': "Single", 'with_detect': True, 'with_stats': False, 'with_global_stats': False},
+        {'sources': "4", 'with_images': "Single", 'with_detect': True, 'with_stats': False, 'with_global_stats': False},
+    ]
 
-#     # Itérer sur toutes les combinaisons de paramètres
-#     for params in params_list:
-#         response = client.get('/get_data_animov_ch', headers={'x-access-tokens': token}, query_string=params)
-#         # Vérifier que la réponse a un statut 200 OK pour chaque combinaison de paramètres
-#         assert response.status_code == 200
-#         # Charger la réponse JSON
-#         data = json.loads(response.data)
-#         # Vérifier que la réponse est un dictionnaire
-#         assert isinstance(data, dict), "La réponse de la route /get_data_animov_ch n'est pas du bon type"
+    # Itérer sur toutes les combinaisons de paramètres
+    for params in params_list:
+        response = client.get('/get_data_animov_ch', headers={'x-access-tokens': token}, query_string=params)
+        # Vérifier que la réponse a un statut 200 OK pour chaque combinaison de paramètres
+        assert response.status_code == 200
+        # Charger la réponse JSON
+        data = json.loads(response.data)
+        # Vérifier que la réponse est un dictionnaire
+        assert isinstance(data, dict), "La réponse de la route /get_data_animov_ch n'est pas du bon type"
