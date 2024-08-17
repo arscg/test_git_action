@@ -214,6 +214,18 @@ try:
         FROM table_chevres_minute_serveur_v2
         WHERE timestamp = (SELECT MAX(timestamp) FROM table_chevres_minute_serveur_v2);
         """)
+    
+    cursor.execute("""
+        DELIMITER //
+        CREATE PROCEDURE ConsoliderResultatsEcartType()
+        BEGIN
+            UPDATE table_chevres_minute_serveur_v2
+            SET std_total = (SELECT STDDEV(total) FROM table_chevres_minute_serveur_v2 WHERE source = table_chevres_minute_serveur_v2.source),
+                std_couche = (SELECT STDDEV(couche) FROM table_chevres_minute_serveur_v2 WHERE source = table_chevres_minute_serveur_v2.source),
+                std_debout = (SELECT STDDEV(debout) FROM table_chevres_minute_serveur_v2 WHERE source = table_chevres_minute_serveur_v2.source);
+        END //
+        DELIMITER ;
+        """)
 
     # Commit the changes
     conn.commit()
