@@ -45,7 +45,7 @@ protected_routes = [
     '/chevres_minutes',
     '/sources',
     '/dates',
-    # '/stats_minute',
+    '/stats_minute',
     # '/stats_heure',
     # '/get_serie_heure',
     # '/get_serie_jour',
@@ -74,7 +74,7 @@ def test_protected_routes_with_token(client):
 get_routes = [
     '/sources',
     '/dates',
-    # '/stats_minute',
+    '/stats_minute',
     # '/stats_heure',
     # '/get_serie_heure',
     # '/get_serie_jour',
