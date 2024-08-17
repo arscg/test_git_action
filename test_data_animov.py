@@ -497,13 +497,16 @@ class DatabaseManager:
         return df
     
     def query_get_stats_heure(self):
-        sql_query_procedure = text("CALL `ANIMOV`.`ConsoliderResultatsEcartType`();")
         try:
-            with self.engine.begin() as conn:
-                conn.execute(sql_query_procedure)
-        except Exception as e:
-            print(f"Erreur lors de l'exécution de la procédure stockée: {e}")
-            return pd.DataFrame()
+          sql_query_procedure = text("CALL `ANIMOV`.`ConsoliderResultatsEcartType`();")
+          try:
+              with self.engine.begin() as conn:
+                  conn.execute(sql_query_procedure)
+          except Exception as e:
+              print(f"Erreur lors de l'exécution de la procédure stockée: {e}")
+              return pd.DataFrame()
+        except:
+            pass
         
         sql_query_results = "SELECT * FROM `ANIMOV`.`ResultatsConsolides`;"
         df = pd.read_sql(sql_query_results, self.engine)
