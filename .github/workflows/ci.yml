@@ -38,6 +38,10 @@ jobs:
     - name: Wait for MySQL to be ready
       run: sleep 15  # Attendre 15 secondes pour que MySQL soit prêt
 
+    - name: Verify MySQL is running
+      run: |
+        mysqladmin -h localhost -u root -proot ping
+
     - name: Run MySQL setup
       env:
         MYSQL_DATABASE_URI: mysql+pymysql://root:root@localhost:3306/mydatabase
@@ -46,4 +50,4 @@ jobs:
 
     - name: Run tests with pytest
       run: |
-        pytest --maxfail=5 --disable-warnings
+        pytest -v --maxfail=5 --disable-warnings
