@@ -251,6 +251,29 @@ try:
         );
         """)
     
+        # Création de la vue vue_chevre_derniere_jour_last
+        cursor.execute("""
+        CREATE OR REPLACE VIEW vue_chevre_derniere_jour_last AS
+        SELECT 
+            timestamp,
+            source,
+            total,
+            couche,
+            debout,
+            max_total,
+            max_couche,
+            max_debout,
+            min_total,
+            min_couche,
+            min_debout,
+            nb_frames
+        FROM table_chevres_minute_serveur_v2  -- Remplacez par le nom de votre table de base
+        WHERE DATE(timestamp) = (
+            SELECT MAX(DATE(timestamp)) 
+            FROM table_chevres_minute_serveur_v2 -- Remplacez par le nom de votre table de base
+        );
+        """)
+
         # Création de la table ResultatsConsolides
         cursor.execute("""
         CREATE TABLE IF NOT EXISTS ResultatsConsolides (
