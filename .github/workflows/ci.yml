@@ -4,15 +4,14 @@ on: [push, pull_request]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     services:
       mysql:
         image: mysql:5.7
         env:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: mydatabase
+          MYSQL_ROOT_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          MYSQL_DATABASE: ${{ secrets.DB_NAME }}
         ports:
           - 3306:3306
         options: >-
@@ -23,10 +22,10 @@ jobs:
 
     steps:
     - name: Check out code
-      uses: actions/checkout@v4  # Mise à jour vers la version compatible Node.js 20
+      uses: actions/checkout@v4
 
     - name: Set up Python
-      uses: actions/setup-python@v4  # Mise à jour vers la version compatible Node.js 20
+      uses: actions/setup-python@v4
       with:
         python-version: '3.8'
 
@@ -40,7 +39,7 @@ jobs:
 
     - name: Run MySQL setup
       env:
-        MYSQL_DATABASE_URI: mysql+pymysql://root:root@localhost:3306/mydatabase
+        MYSQL_DATABASE_URI: mysql+pymysql://${{ secrets.DB_USER }}:${{ secrets.DB_PASSWORD }}@${{ secrets.DB_HOST }}:3306/${{ secrets.DB_NAME }}
       run: |
         python migrations/mysql_setup.py
 
