@@ -137,7 +137,8 @@ try:
                 Q1_total, Q1_couche, Q1_debout, Q2_total, Q2_couche, Q2_debout, 
                 Q3_total, Q3_couche, Q3_debout, mode_total, mode_couche, mode_debout, nb_frames
             ))
-          # Ajouter la table table_chevres_heures
+          
+        # Ajouter la table table_chevres_heures
         cursor.execute("""
         CREATE TABLE IF NOT EXISTS table_chevres_heures (
             jour DATETIME NOT NULL,
@@ -215,16 +216,24 @@ try:
         WHERE timestamp = (SELECT MAX(timestamp) FROM table_chevres_minute_serveur_v2);
         """)
     
+    # Créer la procédure ConsoliderResultatsEcartType sans DELIMITER
     cursor.execute("""
-        DELIMITER //
-        CREATE PROCEDURE ConsoliderResultatsEcartType()
-        BEGIN
-        END //
-        DELIMITER ;
-        """)
+    CREATE PROCEDURE ConsoliderResultatsEcartType()
+    BEGIN
+        -- Exemple de mise à jour d'une colonne avec l'écart-type calculé
+        UPDATE table_chevres_minute_serveur_v2
+        SET std_total = (SELECT STDDEV(total) FROM table_chevres_minute_serveur_v2 WHERE source = table_chevres_minute_serveur_v2.source),
+            std_couche = (SELECT STDDEV(couche) FROM table_chevres_minute_serveur_v2 WHERE source = table_chevres_minute_serveur_v2.source),
+            std_debout = (SELECT STDDEV(debout) FROM table_chevres_minute_serveur_v2 WHERE source = table_chevres_minute_serveur_v2.source);
+    END;
+    """)
+
+    # Appeler la procédure stockée ConsoliderResultatsEcartType
+    cursor.execute("CALL `ANIMOV`.`ConsoliderResultatsEcartType`()")
 
     # Commit the changes
     conn.commit()
 
 finally:
     conn.close()
+
