@@ -16,10 +16,6 @@ host = url.hostname
 port = url.port
 user = url.username
 password = url.password
-# Vous avez demandé d'utiliser username: 'root' et password: 'admin'
-user = 'root'
-password = 'admin'
-
 database = 'ANIMOV'  # Nom de la base de données à créer
 
 # Connect to the MySQL server (sans spécifier de base de données)
